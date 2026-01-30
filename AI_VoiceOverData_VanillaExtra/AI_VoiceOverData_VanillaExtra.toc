@@ -1,0 +1,23 @@
+## Interface: 30300
+## Title: VoiceOver Data - Vanilla Extra
+## Version: 1.0
+## LoadOnDemand: 1
+## OptionalDeps: AI_VoiceOver
+## X-Part-Of: VoiceOver
+## X-Child-Of: VoiceOver
+## X-VoiceOver-DataModule-Version: 1
+## X-VoiceOver-DataModule-Priority: 101
+
+Module.lua
+generated\item_name_lookups.lua
+generated\npc_gossip_file_lookups.lua
+generated\npc_name_gossip_file_lookups.lua
+generated\npc_name_lookups.lua
+generated\object_gossip_file_lookups.lua
+generated\object_name_gossip_file_lookups.lua
+generated\object_name_lookups.lua
+generated\quest_id_lookups.lua
+generated\questlog_item_lookups.lua
+generated\questlog_npc_lookups.lua
+generated\questlog_object_lookups.lua
+generated\sound_length_table.lua
