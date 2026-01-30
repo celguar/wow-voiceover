@@ -501,10 +501,10 @@ end
 -- Normalize a title: trims, removes quotes, lowercases
 local function normalizeTitle(s)
     if not s then return "" end
-    s = s:match('^%s*(.-)%s*$')     -- trim whitespace
-    s = s:gsub('["\']', '')         -- remove single and double quotes
-    s = s:gsub("[\r\n]", "")        -- remove any newlines
-    return s:lower()
+    local trimmed = string.match(s, '^%s*(.-)%s*$')
+    trimmed = string.gsub(trimmed, '["\']', '')
+    trimmed = string.gsub(trimmed, '[\\r\\n]', '')
+    return string.lower(trimmed)
 end
 
 local function titlesMatch(a, b)
