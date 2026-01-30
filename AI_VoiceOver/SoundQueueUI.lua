@@ -17,6 +17,26 @@ local HIDE_GOSSIP_OPTIONS = true -- Disable to allow gossip options to show up i
 local WAIT_FOR_ANIMATION_FINISH_BEFORE_IDLE = true
 local CAN_MODEL_LOAD_CACHE = Version:IsRetailOrAboveLegacyVersion(60000)
 
+
+-- Helper to decide which animation to use
+local function GetTalkAnimationForModel(model)
+    local fileID = model:GetModelFileID()
+    
+    -- BloodElfFemale standard and HD → force leaning-forward talk
+    if fileID == 116921 or fileID == 1100258 then
+        return 65
+    end
+
+    -- If no fileID (like Dryads / Remulos) or if animation is missing,
+    -- fall back to stand (0) instead of trying to play talk (60).
+    if not fileID then
+        return 0
+    end
+
+    -- Default talk animation
+    return 60
+end
+
 do
     local font = CreateFont("VoiceOverNameFont")
     font:SetFont(GameFontNormal:GetFont(), 19, "")
@@ -327,19 +347,21 @@ function SoundQueueUI:InitPortrait()
                     self.model:ClearModel()
                 end
                 self.model:SetCreature(creatureID)
+
                 self.model:SetCustomCamera(0)
                 self.model:SetModelScale(2)
 
-                self.model.animation = 60
-                self.model.animDuration = nil
+
+		self.model.animation = GetTalkAnimationForModel(self.model)                		self.model.animDuration = nil
                 self.model.animDelay = soundData.delay
                 self.model.animtimer = nil
 
                 self.model.oldCreatureID = creatureID
             elseif self.model.wasPaused and SoundQueue:IsPlaying() then
-                self.model.animation = 60
+		            self.model.animation = GetTalkAnimationForModel(self.model)
                 self.model.animDuration = nil
                 self.model.animDelay = soundData.delay
+
             end
         end
     end
@@ -352,6 +374,7 @@ function SoundQueueUI:InitPortrait()
     -- Create a 3D model
     self.frame.portrait.model = CreateFrame("DressUpModel", nil, self.frame.portrait)
     self.frame.portrait.defaultModel = self.frame.portrait.model
+
 
     -- Create a book icon replacement when the 3D portrait is unavailable
     self.frame.portrait.book = self.frame.portrait:CreateTexture(nil, "ARTWORK")

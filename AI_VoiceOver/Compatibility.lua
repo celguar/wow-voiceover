@@ -1,5 +1,30 @@
 setfenv(1, VoiceOver)
 
+ --providing some wrappers for when using retail client (such as TBC Anniversary)
+if not GetNumAddOns and C_AddOns then
+    --ADDON API
+    _G.GetNumAddOns = C_AddOns.GetNumAddOns
+    _G.GetAddOnInfo = C_AddOns.GetAddOnInfo
+    _G.GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+    _G.IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+    _G.IsAddOnLoadOnDemand = C_AddOns.IsAddOnLoadOnDemand
+    _G.EnableAddOn = C_AddOns.EnableAddOn
+    _G.DisableAddOn = C_AddOns.DisableAddOn
+    _G.LoadAddOn = C_AddOns.LoadAddOn
+    _G.GetAddOnEnableState = function(character, index)
+        return C_AddOns.GetAddOnEnableState(index, character) -- Note the swapped order
+    end
+    -- GOSSIP API
+    _G.GetGossipText = C_GossipInfo.GetText
+    _G.GetNumGossipActiveQuests = C_GossipInfo.GetNumActiveQuests
+    _G.GetNumGossipAvailableQuests = C_GossipInfo.GetNumAvailableQuests
+    _G.SelectGossipOption = C_GossipInfo.SelectOption
+    _G.SelectGossipActiveQuest = C_GossipInfo.SelectActiveQuest
+    _G.SelectGossipAvailableQuest = C_GossipInfo.SelectAvailableQuest
+    _G.CloseGossip = C_GossipInfo.CloseGossip
+
+end
+
 if not select then
     function select(index, ...)
         if index == "#" then
@@ -1007,7 +1032,7 @@ if Version.IsRetailVanilla then
     GetGossipText = C_GossipInfo.GetText
     GetNumGossipActiveQuests = C_GossipInfo.GetNumActiveQuests
     GetNumGossipAvailableQuests = C_GossipInfo.GetNumAvailableQuests
-    
+
     function Addon.OnAddonLoad.Leatrix_Plus()
         C_Timer.After(0, function() -- Let it run its ADDON_LOADED code
             hooksecurefunc("QuestLog_Update", function()

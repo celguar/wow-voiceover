@@ -194,8 +194,8 @@ local animationDurations = {
     ["Original"] = {
         [130737]  = { [60] = 1533 }, -- interface/buttons/talktomequestion_white
 
-        [116921]  = { [60] = 4000 }, -- character/bloodelf/female/bloodelffemale
-        [1100258] = { [60] = 4000 }, -- character/bloodelf/female/bloodelffemale_hd
+        [116921]  = { [60] = 2000 }, -- character/bloodelf/female/bloodelffemale
+        [1100258] = { [60] = 2000 }, -- character/bloodelf/female/bloodelffemale_hd
         [117170]  = { [60] = 2000 }, -- character/bloodelf/male/bloodelfmale
         [1100087] = { [60] = 2000 }, -- character/bloodelf/male/bloodelfmale_hd
         [117400]  = { [60] = 2934 }, -- character/broken/female/brokenfemale
@@ -277,7 +277,7 @@ end
 ---@param animation number Animation ID
 ---@return number|nil duration Animation duration in milliseconds, 0 if the model is known to lack the animation, or nil if no model is loaded or the animation duration is unknown
 function Utils:GetModelAnimationDuration(model, animation)
-    if not model or model == 123 then return end
+    if not model or model == 119376 then return end
     local models = animationDurations[Utils:GetCurrentModelSet()] or animationDurations["Original"]
     local animations = models[model] or animationDurations["Original"][model]
     local duration = animations and animations[animation]

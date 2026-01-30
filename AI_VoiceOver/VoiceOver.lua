@@ -204,11 +204,17 @@ function Addon:QUEST_DETAIL()
     local questID = GetQuestID()
     local questTitle = GetTitleText()
     local questText = GetQuestText()
+
     local guid = Utils:GetNPCGUID()
     local targetName = Utils:GetNPCName()
 
     if not questID or questID == 0 then
-        return
+    -- Try fallback: look up by quest title
+    	if DataModules and DataModules.GetQuestIDByTitle then
+    		questID = DataModules:GetQuestIDByTitle(questTitle)
+    	else
+    		return
+    	end
     end
 
     -- Can happen if the player interacted with an NPC while having main menu or options opened
@@ -221,7 +227,7 @@ function Addon:QUEST_DETAIL()
     end
 
     local type = guid and Utils:GetGUIDType(guid)
-    if type == Enums.GUID.Item then
+    if type == Enums.GUID.Item or Enums.GUID.GameObject then
         -- Allow quests started from items to have VO, book icon will be displayed for them
     elseif not type or not Enums.GUID:CanHaveID(type) then
         -- If the quest is started by something that we cannot extract the ID of (e.g. Player, when sharing a quest) - try to fallback to a questgiver from a module's database
@@ -231,7 +237,6 @@ function Addon:QUEST_DETAIL()
         targetName = id and DataModules:GetObjectName(type, id) or targetName or "Unknown Name"
     end
 
-    -- print("QUEST_DETAIL", questID, questTitle);
     ---@type SoundData
     local soundData = {
         event = Enums.SoundEvent.QuestAccept,
@@ -266,7 +271,6 @@ function Addon:QUEST_COMPLETE()
         Addon.db.char.RecentQuestTitleToID[questTitle] = questID
     end
 
-    -- print("QUEST_COMPLETE", questID, questTitle);
     ---@type SoundData
     local soundData = {
         event = Enums.SoundEvent.QuestComplete,
@@ -340,12 +344,14 @@ function Addon:GOSSIP_SHOW()
     local targetName = Utils:GetNPCName()
     local gossipText = GetGossipText()
 
+
     -- Can happen if the player interacted with an NPC while having main menu or options opened
     if not guid and not targetName then
         return
     end
 
     local play, npcKey = self:ShouldPlayGossip(guid, gossipText)
+
     if not play then
         return
     end

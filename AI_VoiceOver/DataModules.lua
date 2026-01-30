@@ -1,5 +1,6 @@
 setfenv(1, VoiceOver)
 
+
 local CURRENT_MODULE_VERSION = 1
 local FORCE_ENABLE_DISABLED_MODULES = true
 local LOAD_ALL_MODULES = true
@@ -64,6 +65,27 @@ DataModules =
             ContentVersion = "0.1",
             RelevantAboveVersion = 0,
             URL = "https://www.curseforge.com/wow/addons/voiceover-sounds-vanilla",
+        },
+	{
+            AddonName = "AI_VoiceOverData_VanillaExtra",
+            Title = "VoiceOver Data - Vanilla Extra",
+            ContentVersion = "1.1",
+            RelevantAboveVersion = 0,
+	    URL = "https://www.curseforge.com/wow/addons/voiceover-vanillaextra-audio",
+        },
+	{
+            AddonName = "AI_VoiceOverData_TBC",
+            Title = "VoiceOver Data - TBC",
+            ContentVersion = "1.1",
+            RelevantAboveVersion = 0,
+	    URL = "https://www.curseforge.com/wow/addons/voiceover-tbc-audio",
+        },
+	{
+            AddonName = "AI_VoiceOverData_WoTLK",
+            Title = "VoiceOver Data - WoTLK",
+            ContentVersion = "1.0",
+            RelevantAboveVersion = 0,
+	    URL = "https://www.curseforge.com/wow/addons/voiceover-wotlk-audio",
         },
     },
 }
@@ -436,7 +458,6 @@ setmetatable(getFileNameForEvent,
 ---@return boolean found Whether the sound is found and can be played
 function DataModules:PrepareSound(soundData)
     soundData.fileName = getFileNameForEvent[soundData.event](soundData)
-
     if soundData.fileName == nil then
         return false
     end
@@ -475,4 +496,48 @@ function DataModules:AddPlayerGenderToFilename(fileName)
     else                          -- unknown or error
         return fileName
     end
+end
+
+-- Normalize a title: trims, removes quotes, lowercases
+local function normalizeTitle(s)
+    if not s then return "" end
+    s = s:match('^%s*(.-)%s*$')     -- trim whitespace
+    s = s:gsub('["\']', '')         -- remove single and double quotes
+    s = s:gsub("[\r\n]", "")        -- remove any newlines
+    return s:lower()
+end
+
+local function titlesMatch(a, b)
+    return normalizeTitle(a) == normalizeTitle(b)
+end
+
+function DataModules:GetQuestIDByTitle(title)
+    local normTitle = normalizeTitle(title)
+
+    for _, module in self:GetModules() do
+        local data = module.QuestIDLookup
+        if data then
+            for _, tableName in ipairs({"accept", "complete"}) do
+                local tbl = data[tableName]
+                if tbl then
+                    for key, val in pairs(tbl) do
+                        -- handle nested tables automatically
+                        if type(val) == "number" then
+                            if titlesMatch(key, normTitle) then
+                                return val
+                            end
+                        elseif type(val) == "table" then
+                            for nestedKey, nestedID in pairs(val) do
+                                if titlesMatch(nestedKey, normTitle) or titlesMatch(key, normTitle) then
+                                    return nestedID
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return nil
 end
