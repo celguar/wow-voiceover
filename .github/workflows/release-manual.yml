@@ -45,8 +45,7 @@ jobs:
 
       - name: Replace Version placeholders
         run: |
-          VERSION=${{ github.ref_name }}
-          VERSION=${VERSION:1}
+          VERSION=${{ inputs.tag }}
           VERSION_VANILLA=${{ inputs.vanilla_data }}
           VERSION_VANILLA_EXTRA=${{ inputs.vanilla_data_extra }}
           VERSION_TBC=${{ inputs.tbc_data }}
