@@ -104,7 +104,7 @@ jobs:
           cd ./release/blizz && zip -r ../AI_VoiceOver-WoW_BlizzClassic-$VERSION.zip . && cd ../..
 
       - name: Generate release notes
-        uses: cuchi/jinja2-action@v1.2.2
+        uses: cuchi/jinja2-action@v1.3.0
         with:
           template: .github/release-template.md
           output_file: release_notes.md
