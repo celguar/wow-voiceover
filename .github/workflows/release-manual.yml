@@ -138,6 +138,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
+          fail_on_unmatched_files: true
           body_path: release_notes.md
+          tag_name: ${{ inputs.tag }}
           files: |
             release/*.zip
