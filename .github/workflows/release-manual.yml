@@ -63,6 +63,15 @@ jobs:
           mkdir -p ./release/tbc/AI_VoiceOver
           mkdir -p ./release/wrath/AI_VoiceOver
           mkdir -p ./release/blizz/AI_VoiceOver
+          mkdir -p ./release/vanilla/AI_VoiceOverData_VanillaExtra
+          mkdir -p ./release/tbc/AI_VoiceOverData_VanillaExtra
+          mkdir -p ./release/wrath/AI_VoiceOverData_VanillaExtra
+          mkdir -p ./release/blizz/AI_VoiceOverData_VanillaExtra
+          mkdir -p ./release/tbc/AI_VoiceOverData_TBC
+          mkdir -p ./release/wrath/AI_VoiceOverData_TBC
+          mkdir -p ./release/blizz/AI_VoiceOverData_TBC
+          mkdir -p ./release/wrath/AI_VoiceOverData_WoTLK
+          mkdir -p ./release/blizz/AI_VoiceOverData_WoTLK
           cp -r ./AI_VoiceOver/* ./release/vanilla/AI_VoiceOver
           cp -r ./AI_VoiceOver/* ./release/tbc/AI_VoiceOver
           cp -r ./AI_VoiceOver/* ./release/wrath/AI_VoiceOver
