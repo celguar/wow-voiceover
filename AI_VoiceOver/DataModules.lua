@@ -501,9 +501,9 @@ end
 -- Normalize a title: trims, removes quotes, lowercases
 local function normalizeTitle(s)
     if not s then return "" end
-    local trimmed = string.match(s, '^%s*(.-)%s*$')
-    trimmed = string.gsub(trimmed, '["\']', '')
-    trimmed = string.gsub(trimmed, '[\\r\\n]', '')
+    local trimmed = string.match(s, '^%s*(.-)%s*$') -- trim whitespace
+    trimmed = string.gsub(trimmed, '["\']', '')     -- remove single and double quotes
+    trimmed = string.gsub(trimmed, '[\\r\\n]', '')  -- remove any newlines
     return string.lower(trimmed)
 end
 
