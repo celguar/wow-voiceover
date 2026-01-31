@@ -1,6 +1,6 @@
-## Interface: 30300
+## Interface: 00000
 ## Title: VoiceOver Data - WoTLK
-## Version: 1.0
+## Version: 0.0
 ## LoadOnDemand: 1
 ## OptionalDeps:  AI_VoiceOver
 ## X-Part-Of: VoiceOver
