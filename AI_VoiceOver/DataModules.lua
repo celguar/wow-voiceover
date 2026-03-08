@@ -69,14 +69,14 @@ DataModules =
 	{
             AddonName = "AI_VoiceOverData_VanillaExtra",
             Title = "VoiceOver Data - Vanilla Extra",
-            ContentVersion = "1.1",
+            ContentVersion = "1.3",
             RelevantAboveVersion = 0,
 	    URL = "https://www.curseforge.com/wow/addons/voiceover-vanillaextra-audio",
         },
 	{
             AddonName = "AI_VoiceOverData_TBC",
             Title = "VoiceOver Data - TBC",
-            ContentVersion = "1.1",
+            ContentVersion = "1.2",
             RelevantAboveVersion = 0,
 	    URL = "https://www.curseforge.com/wow/addons/voiceover-tbc-audio",
         },
@@ -347,8 +347,8 @@ end
 function DataModules:GetQuestID(source, title, npcName, text)
     local cleanedTitle = replaceDoubleQuotes(title)
     local cleanedNPCName = replaceDoubleQuotes(npcName)
-    local cleanedText = replaceDoubleQuotes(getFirstNWords(text, 15)) ..
-        " " .. replaceDoubleQuotes(getLastNWords(text, 15))
+    local cleanedText = replaceDoubleQuotes(getFirstNWords(text, 20)) ..
+        " " .. replaceDoubleQuotes(getLastNWords(text, 20))
     local text_entries = {}
 
     for _, module in self:GetModules() do
@@ -368,6 +368,12 @@ function DataModules:GetQuestID(source, title, npcName, text)
                             for text, ID in pairs(npcLookup) do
                                 text_entries[text] = text_entries[text] or
                                     ID -- Respect module priority, don't overwrite the entry if there is already one
+                            end
+                            -- MOVE THE SEARCH HERE
+                            local best_result = FuzzySearchBestKeys(cleanedText, text_entries)
+                            if best_result then
+                                return best_result.value -- This exits the WHOLE function immediately
+
                             end
                         end
                     end
@@ -528,7 +534,7 @@ function DataModules:GetQuestIDByTitle(title)
                             end
                         elseif type(val) == "table" then
                             for nestedKey, nestedID in pairs(val) do
-                                if titlesMatch(nestedKey, normTitle) or titlesMatch(key, normTitle) then
+                                if titlesMatch(nestedKey, normTitle) then
                                     return nestedID
                                 end
                             end
