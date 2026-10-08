@@ -17,7 +17,7 @@ The addon adds AI voiceacting to quests and gossip, making each interaction and 
 - [Turtle WoW Voice Data](https://github.com/lightbladeninja/wow-voiceover/releases/download/v1.5.0/AI_VoiceOverData_Turtle.zip)
 2. Open the zip files and copy the folders to your Addons folder. You should now have these 4 different AI_VoiceOver folders:
 
-    ![alt text](image-2.png)
+    ![alt text](image-1.png)
 
 3. Log in to your character and talk to an NPC with unique dialogue, like a quest. The sound widget should appear, which you can move around the screen and resize. Type "/vo options" or find the minimap button to configure.
 
