@@ -1,20 +1,34 @@
-# VoiceOver for World of Warcraft
+# VoiceOver Addon for Vanilla WoW
 
-## v2: https://allvoice.ai
-Contribute voices on [allvoice.ai](https://allvoice.ai) so I can give each NPC a unique AI voicemodel to power their dialog. The top rated voice for each NPC will be used. 
+The addon adds AI voiceacting to quests and gossip, making each interaction and storyline feel more immersive (and you don't have to read the quest text). The VoiceOver Play widget allows for pausing, queueing multiple interactions and also skipping specific entries in the queue. This ensures an immersive voiceacting experience without being forced to pay attention whenever it plays, to not miss out on dialogue. You can also replay dialogue from your questlog.
+
+![alt text](image.png)
+
+## Video Showcase
+
+- [[Basic functionality with vanilla wow content.](https://www.youtube.com/watch?v=k8Dpp2e4pKc)]
+- [[Questlog playback with custom turtle wow content.](https://youtu.be/c77MlSIyITI)]
+
+## Installation
+
+1. Download the following components
+- [Main Addon](https://github.com/lightbladeninja/wow-voiceover/releases/download/v1.5.0/AI_VoiceOverAddon.zip)
+- [Vanilla Voice Data](https://github.com/lightbladeninja/wow-voiceover/releases/download/v1.5.0/AI_VoiceOverData_Vanilla.zip)
+- [Turtle WoW Voice Data](https://github.com/lightbladeninja/wow-voiceover/releases/download/v1.5.0/AI_VoiceOverData_Turtle.zip)
+2. Open the zip files and copy the folders to your Addons folder. You should now have these 4 different AI_VoiceOver folders:
+
+    ![alt text](image-1.png)
+
+3. Log in to your character and talk to an NPC with unique dialogue, like a quest. The sound widget should appear, which you can move around the screen and resize. Type "/vo options" or find the minimap button to configure.
+
+## Credits
+- [**MrThinger**](https://github.com/mrthinger) - Original VoiceOver addon and voicepack creator. [Still maintaining the vanilla version](https://github.com/mrthinger/wow-voiceover). Join their [Discord](https://discord.gg/VdhUmA8ZCt) to discuss the future of VoiceOver.
+- [**Carevass**](https://github.com/carevass) - Improved the voicepack for vanilla content. They're currently maintaining a [TBC/Wotlk version of the addon](https://github.com/carevass/wow-voiceover-tbc-wotlk).
+- [**Celguar**](https://github.com/celguar) - Generated the voicepack for custom Turtle WoW content.
 
 
-### [voiceover discord](https://discord.gg/VdhUmA8ZCt)
-### [allvoice code](https://github.com/allvoice/allvoice-website)
 
-## Overview
-- tts cli to create audio files for quests and gossip text.
-- in game addon for playing generated voiceovers
-
-- cli uses data fetched from a local MySQL database and ElevenLabs tts for speech
-
-
-## Below is for developers only. Go to [releases](https://github.com/mrthinger/wow-voiceover/releases) if youre looking to install the addon.
+# Developer Instructions
 
 ## Requirements
 - python 3.10+
